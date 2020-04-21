@@ -4,7 +4,9 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
+#include <mylibrary/engine.h>
 
+const int block_size = 50;
 
 namespace myapp {
 
@@ -15,6 +17,9 @@ class MyApp : public cinder::app::App {
   void update() override;
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
+  void DrawBackground();
+ private:
+  Engine engine;
 };
 
 }  // namespace myapp
