@@ -11,11 +11,15 @@ namespace myapp {
 using cinder::app::KeyEvent;
 using cinder::Rectf;
 using cinder::Color;
+const char kDbPath[] = "leaderboard.db";
 
-MyApp::MyApp() : engine{} { }
+MyApp::MyApp() : engine{},
+                   leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 void MyApp::setup() {
   cinder::gl::color(0, 0, 0);
+  leaderboard.InsertScoreToLeaderboard(2);
+
 }
 
 void MyApp::update() { }

@@ -9,11 +9,16 @@
 
 namespace myapp {
 
+class SQL_Leaderboard {
 
+ public:
+  //SQL_Leaderboard();
+  SQL_Leaderboard(const std::string& db_path);
+  void InsertScoreToLeaderboard(const int score);
 
-
-
-
+ private:
+  sqlite::database db_;
+};
 
 }
 

@@ -5,6 +5,7 @@
 
 #include <cinder/app/App.h>
 #include <mylibrary/engine.h>
+#include <mylibrary/scores.h>
 
 const int block_size = 50;
 
@@ -19,6 +20,7 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
   void DrawBackground();
  private:
+  SQL_Leaderboard leaderboard;
   Engine engine;
 };
 
