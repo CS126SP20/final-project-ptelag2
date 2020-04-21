@@ -23,11 +23,11 @@ void MyApp::update() { }
 void MyApp::draw() {
   DrawBackground();
   cinder::gl::color(0, 1, 0);
-  cinder::gl::drawSolidRect(Rectf(block_size * engine.GetXBlock(),
-                                  block_size * engine.GetYBlock(),
-                                  block_size * engine.GetXBlock()
+  cinder::gl::drawSolidRect(Rectf(block_size * engine.GetBlock().GetXBlock(),
+                                  block_size * engine.GetBlock().GetYBlock(),
+                                  block_size * engine.GetBlock().GetXBlock()
                                   + block_size,
-                                  block_size * engine.GetYBlock()
+                                  block_size * engine.GetBlock().GetYBlock()
                                   + block_size));
 }
 
@@ -38,11 +38,11 @@ void MyApp::DrawBackground() {
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
     case KeyEvent::KEY_LEFT: {
-      engine.SetXBlock(engine.GetXBlock() - 1);
+      engine.GetBlock().MoveLeft();
       break;
     }
     case KeyEvent::KEY_RIGHT: {
-      engine.SetXBlock(engine.GetXBlock() + 1);
+      engine.GetBlock().MoveRight();
       break;
     }
   }

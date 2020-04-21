@@ -6,7 +6,7 @@
 
 namespace myapp {
 
-int Engine::GetXBlock() {
+/*int Engine::GetXBlock() {
   return x_block;
 }
 
@@ -20,6 +20,10 @@ void Engine::SetXBlock(int x) {
 
 void Engine::SetYBlock(int y) {
   y_block = y;
+}*/
+
+Block& Engine::GetBlock() {
+  return (Block&)block;
 }
 
 }
