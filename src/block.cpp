@@ -25,11 +25,15 @@ void Block::SetYBlock(int y) {
 }
 
 void Block::MoveLeft() {
-  x_block--;
+  if (x_block > 0) {
+    x_block--;
+  }
 }
 
 void Block::MoveRight() {
-  x_block++;
+  if (x_block < 19) {
+    x_block++;
+  }
 }
 
 }

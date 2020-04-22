@@ -45,10 +45,10 @@ void MyApp::DrawBlock() {
 }
 
 void MyApp::DrawFloors() {
-vector<int> vector{0, 1, 2, 3, 4, 19};
+vector<int> vector{0, 1, 2, 3, 4, 19, 15, 6, 7, 13, 1, 8};
 
   cinder::gl::color(1, 1, 0);
-  for (int i = vector.size() - 1; i >= 0; i--) {
+  for (int i = 0; i < vector.size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
                                     800 - (2 * i * kHeightOfFloor),
                                     (vector[i]) * kHeightOfFloor,
