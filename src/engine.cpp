@@ -6,24 +6,12 @@
 
 namespace myapp {
 
-/*int Engine::GetXBlock() {
-  return x_block;
-}
-
-int Engine::GetYBlock() {
-  return y_block;
-}
-
-void Engine::SetXBlock(int x) {
-  x_block = x;
-}
-
-void Engine::SetYBlock(int y) {
-  y_block = y;
-}*/
 
 Block& Engine::GetBlock() {
   return (Block&)block;
+}
+int Engine::GetScore() {
+  return score;
 }
 
 }

@@ -26,17 +26,39 @@ void MyApp::update() { }
 
 void MyApp::draw() {
   DrawBackground();
-  cinder::gl::color(0, 1, 0);
-  cinder::gl::drawSolidRect(Rectf(block_size * engine.GetBlock().GetXBlock(),
-                                  block_size * engine.GetBlock().GetYBlock(),
-                                  block_size * engine.GetBlock().GetXBlock()
-                                  + block_size,
-                                  block_size * engine.GetBlock().GetYBlock()
-                                  + block_size));
+  DrawBlock();
+  DrawFloors();
 }
 
 void MyApp::DrawBackground() {
   cinder::gl::clear(Color(0, 0, 0));
+}
+
+void MyApp::DrawBlock() {
+  cinder::gl::color(0, 1, 0);
+  cinder::gl::drawSolidRect(Rectf(kBlockSize * engine.GetBlock().GetXBlock(),
+                                  kBlockSize * engine.GetBlock().GetYBlock(),
+                                  kBlockSize * engine.GetBlock().GetXBlock()
+                                  + kBlockSize,
+                                  kBlockSize * engine.GetBlock().GetYBlock()
+                                  + kBlockSize));
+}
+
+void MyApp::DrawFloors() {
+vector<int> vector{0, 1, 2, 3, 4, 19};
+
+  cinder::gl::color(1, 1, 0);
+  for (int i = vector.size() - 1; i >= 0; i--) {
+    cinder::gl::drawSolidRect(Rectf(0,
+                                    800 - (2 * i * kHeightOfFloor),
+                                    (vector[i]) * kHeightOfFloor,
+                                    800 - (2 * i * kHeightOfFloor) - kHeightOfFloor));
+
+    cinder::gl::drawSolidRect(Rectf((vector[i]+1) * kHeightOfFloor,
+                                    800 - (2 * i * kHeightOfFloor),
+                                    800,
+                                    800 - (2 * i * kHeightOfFloor) - kHeightOfFloor));
+  }
 }
 
 void MyApp::keyDown(KeyEvent event) {

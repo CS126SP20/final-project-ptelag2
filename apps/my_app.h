@@ -7,7 +7,8 @@
 #include <mylibrary/engine.h>
 #include <mylibrary/scores.h>
 
-const int block_size = 50;
+const int kBlockSize = 40;
+const int kHeightOfFloor = 40;
 
 namespace myapp {
 
@@ -19,6 +20,9 @@ class MyApp : public cinder::app::App {
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
   void DrawBackground();
+  void DrawBlock();
+  void DrawFloors();
+
  private:
   SQL_Leaderboard leaderboard;
   Engine engine;
