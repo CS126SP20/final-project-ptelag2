@@ -8,16 +8,16 @@
 namespace myapp {
 class Block {
  public:
-  int GetXBlock();
-  int GetYBlock();
-  void SetXBlock(int x);
-  void SetYBlock(int y);
+  double GetXPosition();
+  double GetYPosition();
+  void SetXPosition(double x);
+  void SetYPosition(double y);
   void MoveLeft();
   void MoveRight();
 
  private:
-  int x_block;
-  int y_block;
+  int x_position;
+  int y_position;
 };
 }
 

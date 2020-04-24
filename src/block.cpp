@@ -8,31 +8,31 @@
 
 namespace myapp {
 
-int myapp::Block::GetXBlock() {
-  return x_block;
+double myapp::Block::GetXPosition() {
+  return x_position;
 }
 
-int Block::GetYBlock() {
-  return y_block;
+double Block::GetYPosition() {
+  return y_position;
 }
 
-void Block::SetXBlock(int x) {
-  x_block = x;
+void Block::SetXPosition(double x) {
+  x_position = x;
 }
 
-void Block::SetYBlock(int y) {
-  y_block = y;
+void Block::SetYPosition(double y) {
+  y_position = y;
 }
 
 void Block::MoveLeft() {
-  if (x_block > 0) {
-    x_block--;
+  if (x_position > 0) {
+    x_position--;
   }
 }
 
 void Block::MoveRight() {
-  if (x_block < 19) {
-    x_block++;
+  if (x_position < 19) {
+    x_position++;
   }
 }
 
