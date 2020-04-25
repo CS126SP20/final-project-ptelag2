@@ -35,4 +35,8 @@ void Engine::PlaceBlockOnLowestSurface() {
     }
   }*/
 }
+void Engine::AddRandomFloor() {
+  open_floor.insert(open_floor.begin(), 5);
+  BlockCanMoveDown();
+}
 }
