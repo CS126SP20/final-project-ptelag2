@@ -5,16 +5,22 @@
 #ifndef FINALPROJECT_FLOOR_H
 #define FINALPROJECT_FLOOR_H
 
+
+
 namespace myapp {
 
 class Floor {
 
  public:
   Floor();
-  bool GetFloor();
+  //bool GetFloor();
+  double GetHeight();
+  int GetOpenSpot();
+  void SetHeight(double new_height);
 
  private:
-  bool floor_layout[15];
+  int open_spot;
+  double height;
 
 
 };

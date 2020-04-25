@@ -9,10 +9,18 @@ namespace myapp {
 
 Floor::Floor() {
   int open_index =  (rand() % 15);
-  floor_layout[open_index];
+  open_spot = open_index;
 }
-bool Floor::GetFloor() {
-  return &floor_layout;
+double Floor::GetHeight() {
+  return height;
+}
+
+int Floor::GetOpenSpot() {
+  return open_spot;
+}
+
+void Floor::SetHeight(double new_height) {
+  height = new_height;
 }
 
 } //namespace myapp
