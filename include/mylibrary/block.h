@@ -16,8 +16,8 @@ class Block {
   void MoveRight();
 
  private:
-  int x_position;
-  int y_position;
+  double x_position;
+  double y_position;
 };
 }
 

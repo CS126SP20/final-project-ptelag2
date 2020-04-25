@@ -4,6 +4,7 @@
 
 #include <cinder/app/App.h>
 #include <cinder/gl/gl.h>
+#include <chrono>
 
 
 namespace myapp {
@@ -11,23 +12,30 @@ namespace myapp {
 using cinder::app::KeyEvent;
 using cinder::Rectf;
 using cinder::Color;
+using std::chrono::duration_cast;
+using std::chrono::seconds;
+using std::chrono::system_clock;
+using std::chrono::milliseconds;
 const char kDbPath[] = "leaderboard.db";
 
 MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 void MyApp::setup() {
-  cinder::gl::color(0, 0, 0);
-  leaderboard.InsertScoreToLeaderboard(2);
-
+  cinder::gl::color(0, 0, 1);
+  engine.PlaceBlockOnLowestSurface();
 }
 
-void MyApp::update() { }
+void MyApp::update() {
+  if (engine.GetOpenFloor().empty()) {
+    //leaderboard.InsertScoreToLeaderboard(engine.GetScore());
+  }
+}
 
 void MyApp::draw() {
   DrawBackground();
-  DrawBlock();
   DrawFloors();
+  DrawBlock();
 }
 
 void MyApp::DrawBackground() {
@@ -35,29 +43,49 @@ void MyApp::DrawBackground() {
 }
 
 void MyApp::DrawBlock() {
+  engine.BlockCanMoveDown();
   cinder::gl::color(0, 1, 0);
-  cinder::gl::drawSolidRect(Rectf(kBlockSize * engine.GetBlock().GetXBlock(),
-                                  kBlockSize * engine.GetBlock().GetYBlock(),
-                                  kBlockSize * engine.GetBlock().GetXBlock()
+  cinder::gl::drawSolidRect(Rectf(kBlockSize * engine.GetBlock().GetXPosition(),
+                                  kBlockSize * engine.GetBlock().GetYPosition(),
+                                  kBlockSize * engine.GetBlock().GetXPosition()
                                   + kBlockSize,
-                                  kBlockSize * engine.GetBlock().GetYBlock()
+                                  kBlockSize * engine.GetBlock().GetYPosition()
                                   + kBlockSize));
 }
 
+auto starting_time = std::chrono::system_clock::now();
+double height = 800;
 void MyApp::DrawFloors() {
-vector<int> vector{0, 1, 2, 3, 4, 19, 15, 6, 7, 13, 1, 8};
 
+  //vector<int> vector{0, 1, 2, 3, 4, 19, 15, 6, 7, 13, 1, 8};
+  auto current_time = std::chrono::system_clock::now();
+  double current_delay =
+      duration_cast<milliseconds>(current_time - starting_time).count() / 1000.0;
+  if (current_delay > 5) {
+    height-= 0.5;
+    //engine.GetBlock().SetYBlock(engine.GetBlock().GetYBlock() - 1);
+    cinder::gl::color(0, 1, 0);
+    /*cinder::gl::drawSolidRect(Rectf(kBlockSize * engine.GetBlock().GetXPosition(),
+                                    kBlockSize * engine.GetBlock().GetYPosition() - 1,
+                                    kBlockSize * engine.GetBlock().GetXPosition()
+                                    + kBlockSize,
+                                    kBlockSize * engine.GetBlock().GetYPosition()
+                                    + kBlockSize - 1));*/
+    engine.GetBlock().SetYPosition(engine.GetBlock().GetYPosition() - (0.50/40.0));
+    //starting_time = std::chrono::system_clock::now();
+  }
+  vector<int> vector = engine.GetOpenFloor();
   cinder::gl::color(1, 1, 0);
-  for (int i = 0; i < vector.size(); i++) {
+  for (int i = vector.size() - 1; i >= 0; i--) {
     cinder::gl::drawSolidRect(Rectf(0,
-                                    800 - (2 * i * kHeightOfFloor),
+                                    height - (2 * i * kHeightOfFloor),
                                     (vector[i]) * kHeightOfFloor,
-                                    800 - (2 * i * kHeightOfFloor) - kHeightOfFloor));
+                                    height - (2 * i * kHeightOfFloor) - kHeightOfFloor));
 
     cinder::gl::drawSolidRect(Rectf((vector[i]+1) * kHeightOfFloor,
-                                    800 - (2 * i * kHeightOfFloor),
+                                    height - (2 * i * kHeightOfFloor),
                                     800,
-                                    800 - (2 * i * kHeightOfFloor) - kHeightOfFloor));
+                                    height - (2 * i * kHeightOfFloor) - kHeightOfFloor));
   }
 }
 
