@@ -8,7 +8,7 @@
 namespace myapp {
 
 Floor::Floor() {
-  int open_index =  (rand() % 15);
+  int open_index =  (rand() % 20);
   open_spot = open_index;
 }
 double Floor::GetHeight() {
