@@ -22,6 +22,7 @@ using std::chrono::milliseconds;
 const char kDbPath[] = "leaderboard.db";
 const char kNormalFont[] = "Arial";
 //double speed = 1.0;
+double RGB_colors[]{1, 1, 0};
 
 MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
@@ -37,7 +38,7 @@ void MyApp::setup() {
 }
 auto game_starting_time = std::chrono::system_clock::now();
 auto starting_time = std::chrono::system_clock::now();
-double height = 0;
+double height_offset = 0;
 bool speed_can_increase = false;
 void MyApp::update() {
 
@@ -49,12 +50,15 @@ void MyApp::update() {
       duration_cast<milliseconds>(current_time - starting_time).count() / 1000.0;
 
   if (speed_increase_delay > 5 && speed_can_increase) {
-    engine.IncreaseSpeed(0.05);
+    engine.IncreaseSpeed(1);
     starting_time = std::chrono::system_clock::now();
+    RGB_colors[0] = (float)rand() / (RAND_MAX - 1);
+    RGB_colors[1] = (float)rand() / (RAND_MAX - 1);
+    RGB_colors[2] = (float)rand() / (RAND_MAX - 1);
   }
 
   if (animation_start_delay > 10) {
-    height+= engine.GetSpeed();
+    height_offset+= engine.GetSpeed();
     engine.MoveBlockUp();
     speed_can_increase = true;
   }
@@ -93,17 +97,18 @@ void MyApp::DrawBlock() {
 }
 
 void MyApp::DrawFloors() {
-  cinder::gl::color(1, 1, 0);
+  //cinder::gl::color(1, 1, 0);
+  cinder::gl::color(RGB_colors[0], RGB_colors[1], RGB_colors[2]);
   for (int i = 0; i < engine.GetFloors().size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
-                                    engine.GetFloors()[i].GetHeight() * 40 - height,
+                                    engine.GetFloors()[i].GetHeight() * 40 - height_offset,
                                     (engine.GetFloors()[i].GetOpenSpot()) * kHeightOfFloor,
-                                    engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height));
+                                    engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height_offset));
 
     cinder::gl::drawSolidRect(Rectf((engine.GetFloors()[i].GetOpenSpot() + 1) * kHeightOfFloor,
-                                    engine.GetFloors()[i].GetHeight() * 40 - height,
+                                    engine.GetFloors()[i].GetHeight() * 40 - height_offset,
                                     800,
-                                    engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height));
+                                    engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height_offset));
   }
 }
 
