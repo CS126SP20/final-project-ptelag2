@@ -22,6 +22,7 @@ class MyApp : public cinder::app::App {
   void DrawBackground();
   void DrawBlock();
   void DrawFloors();
+  void DrawGameOver();
 
  private:
   SQL_Leaderboard leaderboard;

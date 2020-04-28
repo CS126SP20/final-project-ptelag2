@@ -12,36 +12,46 @@ namespace myapp {
 using cinder::app::KeyEvent;
 using cinder::Rectf;
 using cinder::Color;
+using cinder::ColorA;
 using std::chrono::duration_cast;
 using std::chrono::seconds;
 using std::chrono::system_clock;
+using std::string;
+using cinder::TextBox;
 using std::chrono::milliseconds;
 const char kDbPath[] = "leaderboard.db";
-
+const char kNormalFont[] = "Arial";
+double speed = 1.0;
 MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 void MyApp::setup() {
   cinder::gl::color(0, 0, 1);
-  engine.PlaceBlockOnLowestSurface();
+  //engine.PlaceBlockOnLowestSurface();
   engine.AddInitialFloors();
   //engine.GetOpenFloor().pop_back();
   //engine.PlaceBlockOnLowestSurface();
   engine.PlaceBlockOnLowestSurface();
+  engine.SetGameModeEasy();
 }
 
 void MyApp::update() {
-  if (engine.GetOpenFloor().empty()) {
+  //if (engine.GetOpenFloor().empty()) {
     //leaderboard.InsertScoreToLeaderboard(engine.GetScore());
-  }
+  //}
 
-  if (engine.GetFloors().size() <= 7) {
+  if (engine.GetFloors().size() <= engine.GetFloorGeneratorOffset()) {
     //engine.GetOpenFloor().insert(engine.GetOpenFloor().begin(), 5);
     engine.AddRandomFloor();
   }
+  //speed += 0.001;
 }
 
 void MyApp::draw() {
+  if (engine.IsGameOver()) {
+    DrawGameOver();
+    return;
+  }
   DrawBackground();
   DrawFloors();
   DrawBlock();
@@ -60,18 +70,13 @@ void MyApp::DrawBlock() {
                                   + kBlockSize,
                                   kBlockSize * engine.GetBlock().GetYPosition()
                                   + kBlockSize));
-  /*if (engine.GetOpenFloor().size() <= 7) {
-    //engine.GetOpenFloor().insert(engine.GetOpenFloor().begin(), 5);
-    //engine.AddRandomFloor();
-  }*/
 }
 
 auto starting_time = std::chrono::system_clock::now();
 double height = 0;
-double speed = 5;
+
 void MyApp::DrawFloors() {
 
-  //vector<int> vector{0, 1, 2, 3, 4, 19, 15, 6, 7, 13, 1, 8};
   auto current_time = std::chrono::system_clock::now();
   double current_delay =
       duration_cast<milliseconds>(current_time - starting_time).count() / 1000.0;
@@ -81,21 +86,8 @@ void MyApp::DrawFloors() {
     cinder::gl::color(0, 1, 0);
 
     engine.GetBlock().SetYPosition(engine.GetBlock().GetYPosition() - (speed/40.0));
-    //starting_time = std::chrono::system_clock::now();
   }
-  /*vector<int> vector = engine.GetOpenFloor();
-  cinder::gl::color(1, 1, 0);
-  for (int i = vector.size() - 1; i >= 0; i--) {
-    cinder::gl::drawSolidRect(Rectf(0,
-                                    height - (2 * i * kHeightOfFloor),
-                                    (vector[i]) * kHeightOfFloor,
-                                    height - (2 * i * kHeightOfFloor) - kHeightOfFloor));
 
-    cinder::gl::drawSolidRect(Rectf((vector[i]+1) * kHeightOfFloor,
-                                    height - (2 * i * kHeightOfFloor),
-                                    800,
-                                    height - (2 * i * kHeightOfFloor) - kHeightOfFloor));
-  }*/
   cinder::gl::color(1, 1, 0);
   for (int i = 0; i < engine.GetFloors().size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
@@ -108,6 +100,33 @@ void MyApp::DrawFloors() {
                                     800,
                                     engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height));
   }
+}
+
+template <typename C>
+void PrintText(const string& text, const C& color, const cinder::ivec2& size,
+               const cinder::vec2& loc) {
+  cinder::gl::color(color);
+
+  auto box = TextBox()
+      .alignment(TextBox::CENTER)
+      .font(cinder::Font(kNormalFont, 30))
+      .size(size)
+      .color(color)
+      .backgroundColor(ColorA(0, 0, 0, 0))
+      .text(text);
+
+  const auto box_size = box.getSize();
+  const cinder::vec2 locp = {loc.x - box_size.x / 2, loc.y - box_size.y / 2};
+  const auto surface = box.render();
+  const auto texture = cinder::gl::Texture::create(surface);
+  cinder::gl::draw(texture, locp);
+}
+
+void MyApp::DrawGameOver() {
+  cinder::gl::clear(Color(0.8, 0, 0));
+  const cinder::vec2 center = getWindowCenter();
+  const cinder::ivec2 size = {500, 50};
+  PrintText("Game Over", Color::black(), size, center);
 }
 
 void MyApp::keyDown(KeyEvent event) {

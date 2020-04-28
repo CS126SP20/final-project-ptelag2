@@ -22,10 +22,6 @@ void Engine::BlockCanMoveDown() {
   }
 }
 
-vector<int> Engine::GetOpenFloor() {
-  return open_floor;
-}
-
 void Engine::PlaceBlockOnLowestSurface() {
   block.SetYPosition((10 - floors.size()) * 2);
 }
@@ -50,6 +46,17 @@ bool Engine::IsGameOver() {
     return true;
   }
   return false;
+}
+void Engine::SetGameModeEasy() {
+  speed = 1.0;
+  floor_generator_offset = 10;
+}
+double Engine::GetSpeed() {
+  return speed;
+}
+
+int Engine::GetFloorGeneratorOffset() {
+  return floor_generator_offset;
 }
 
 }
