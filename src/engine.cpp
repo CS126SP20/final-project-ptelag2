@@ -59,4 +59,12 @@ int Engine::GetFloorGeneratorOffset() {
   return floor_generator_offset;
 }
 
+void Engine::MoveBlockUp() {
+  block.SetYPosition(block.GetYPosition() - (speed / 40.0));
+}
+
+void Engine::IncreaseSpeed(double percent) {
+  speed = (speed * (1 + percent));
+}
+
 }

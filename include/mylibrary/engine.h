@@ -35,6 +35,8 @@ class Engine {
   void SetGameModeEasy();
   double GetSpeed();
   int GetFloorGeneratorOffset();
+  void MoveBlockUp();
+  void IncreaseSpeed(double percent);
 };
 
 }

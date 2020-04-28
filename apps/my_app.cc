@@ -21,7 +21,8 @@ using cinder::TextBox;
 using std::chrono::milliseconds;
 const char kDbPath[] = "leaderboard.db";
 const char kNormalFont[] = "Arial";
-double speed = 1.0;
+//double speed = 1.0;
+
 MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
@@ -34,17 +35,36 @@ void MyApp::setup() {
   engine.PlaceBlockOnLowestSurface();
   engine.SetGameModeEasy();
 }
-
+auto game_starting_time = std::chrono::system_clock::now();
+auto starting_time = std::chrono::system_clock::now();
+double height = 0;
+bool speed_can_increase = false;
 void MyApp::update() {
-  //if (engine.GetOpenFloor().empty()) {
-    //leaderboard.InsertScoreToLeaderboard(engine.GetScore());
-  //}
+
+  auto current_time = std::chrono::system_clock::now();
+  double animation_start_delay =
+      duration_cast<milliseconds>(current_time - game_starting_time).count() / 1000.0;
+
+  double speed_increase_delay =
+      duration_cast<milliseconds>(current_time - starting_time).count() / 1000.0;
+
+  if (speed_increase_delay > 5 && speed_can_increase) {
+    engine.IncreaseSpeed(0.05);
+    starting_time = std::chrono::system_clock::now();
+  }
+
+  if (animation_start_delay > 10) {
+    height+= engine.GetSpeed();
+    engine.MoveBlockUp();
+    speed_can_increase = true;
+  }
+
+
 
   if (engine.GetFloors().size() <= engine.GetFloorGeneratorOffset()) {
-    //engine.GetOpenFloor().insert(engine.GetOpenFloor().begin(), 5);
     engine.AddRandomFloor();
   }
-  //speed += 0.001;
+
 }
 
 void MyApp::draw() {
@@ -72,22 +92,7 @@ void MyApp::DrawBlock() {
                                   + kBlockSize));
 }
 
-auto starting_time = std::chrono::system_clock::now();
-double height = 0;
-
 void MyApp::DrawFloors() {
-
-  auto current_time = std::chrono::system_clock::now();
-  double current_delay =
-      duration_cast<milliseconds>(current_time - starting_time).count() / 1000.0;
-  if (current_delay > 10) {
-    height+= speed;
-    //engine.GetBlock().SetYBlock(engine.GetBlock().GetYBlock() - 1);
-    cinder::gl::color(0, 1, 0);
-
-    engine.GetBlock().SetYPosition(engine.GetBlock().GetYPosition() - (speed/40.0));
-  }
-
   cinder::gl::color(1, 1, 0);
   for (int i = 0; i < engine.GetFloors().size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
