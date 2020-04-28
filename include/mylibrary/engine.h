@@ -33,6 +33,7 @@ class Engine {
   void PlaceBlockOnLowestSurface();
   void AddRandomFloor();
   void AddInitialFloors();
+  bool IsGameOver();
 };
 
 }
