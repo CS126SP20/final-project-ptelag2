@@ -47,10 +47,11 @@ bool Engine::IsGameOver() {
   }
   return false;
 }
-void Engine::SetGameModeEasy() {
-  speed = 1.0;
-  floor_generator_offset = 10;
+void Engine::SetGameMode(double game_speed) {
+  speed = game_speed;
+  floor_generator_offset = 10 - (10 * (game_speed - 1));
 }
+
 double Engine::GetSpeed() {
   return speed;
 }

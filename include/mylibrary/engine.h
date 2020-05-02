@@ -32,7 +32,7 @@ class Engine {
   void AddRandomFloor();
   void AddInitialFloors();
   bool IsGameOver();
-  void SetGameModeEasy();
+  void SetGameMode(double game_speed);
   double GetSpeed();
   int GetFloorGeneratorOffset();
   void MoveBlockUp();

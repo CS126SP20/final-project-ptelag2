@@ -6,7 +6,6 @@
 #include <cinder/gl/gl.h>
 #include <chrono>
 
-
 namespace myapp {
 
 using cinder::app::KeyEvent;
@@ -21,6 +20,9 @@ using cinder::TextBox;
 using std::chrono::milliseconds;
 const char kDbPath[] = "leaderboard.db";
 const char kNormalFont[] = "Arial";
+const double kEasy = 1.0;
+const double kMedium = 1.5;
+const double kHard = 2.0;
 //double speed = 1.0;
 double RGB_colors[]{1, 1, 0};
 
@@ -28,18 +30,15 @@ MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 void MyApp::setup() {
-  cinder::gl::color(0, 0, 1);
-  //engine.PlaceBlockOnLowestSurface();
   engine.AddInitialFloors();
-  //engine.GetOpenFloor().pop_back();
-  //engine.PlaceBlockOnLowestSurface();
   engine.PlaceBlockOnLowestSurface();
-  engine.SetGameModeEasy();
+  engine.SetGameMode(kHard);
 }
 auto game_starting_time = std::chrono::system_clock::now();
 auto starting_time = std::chrono::system_clock::now();
 double height_offset = 0;
 bool speed_can_increase = false;
+bool added_score_to_table = false;
 void MyApp::update() {
 
   auto current_time = std::chrono::system_clock::now();
@@ -50,16 +49,19 @@ void MyApp::update() {
       duration_cast<milliseconds>(current_time - starting_time).count() / 1000.0;
 
   if (speed_increase_delay > 5 && speed_can_increase) {
-    engine.IncreaseSpeed(1);
+    engine.IncreaseSpeed(0.05);
     starting_time = std::chrono::system_clock::now();
-    RGB_colors[0] = (float)rand() / (RAND_MAX - 1);
-    RGB_colors[1] = (float)rand() / (RAND_MAX - 1);
-    RGB_colors[2] = (float)rand() / (RAND_MAX - 1);
+    RGB_colors[0] = (float)rand() / (RAND_MAX);
+    RGB_colors[1] = (float)rand() / (RAND_MAX);
+    RGB_colors[2] = (float)rand() / (RAND_MAX);
   }
 
   if (animation_start_delay > 10) {
     height_offset+= engine.GetSpeed();
     engine.MoveBlockUp();
+    if (!speed_can_increase) {
+      starting_time = std::chrono::system_clock::now();
+    }
     speed_can_increase = true;
   }
 
@@ -69,6 +71,10 @@ void MyApp::update() {
     engine.AddRandomFloor();
   }
 
+  if (engine.IsGameOver() && !added_score_to_table) {
+    leaderboard.InsertScoreToLeaderboard(engine.GetScore());
+    added_score_to_table = true;
+  }
 }
 
 void MyApp::draw() {
@@ -97,7 +103,6 @@ void MyApp::DrawBlock() {
 }
 
 void MyApp::DrawFloors() {
-  //cinder::gl::color(1, 1, 0);
   cinder::gl::color(RGB_colors[0], RGB_colors[1], RGB_colors[2]);
   for (int i = 0; i < engine.GetFloors().size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
