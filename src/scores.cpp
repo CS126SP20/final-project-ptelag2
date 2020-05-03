@@ -30,14 +30,17 @@ vector<int> SQL_Leaderboard::GetHighestScores(const int limit, const string mode
 }
 
 SQL_Leaderboard::SQL_Leaderboard(const std::string& db_path) : db_{db_path} {
+  //Creates Easy mode leaderboard
   db_ << "CREATE TABLE if not exists easy_mode_leaderboard (\n"
          "  score INTEGER NOT NULL\n"
          ");";
 
+  //Creates Medium mode leaderboard
   db_ << "CREATE TABLE if not exists medium_mode_leaderboard (\n"
          "  score INTEGER NOT NULL\n"
          ");";
 
+  //Creates Hard mode leaderboard
   db_ << "CREATE TABLE if not exists hard_mode_leaderboard (\n"
          "  score INTEGER NOT NULL\n"
          ");";
