@@ -11,12 +11,6 @@ using std::string;
 namespace myapp {
 
 void SQL_Leaderboard::InsertScoreToLeaderboard(const int score, const string mode) {
-  /*string database_information = "insert into ";
-  database_information.append(mode);
-  database_information.append("_mode_leaderboard (score) values (?)");
-  db_ << database_information
-      << score;*/
-
   db_ << "insert into " + mode + "_mode_leaderboard (score) values (?)"
       << score;
 }
@@ -35,14 +29,16 @@ vector<int> SQL_Leaderboard::GetHighestScores(const int limit, const string mode
   return top_scores;
 }
 
-void SQL_Leaderboard::InsertScoreToEasyLeaderboard(const int score) {
-  db_ << "insert into easy_mode_leaderboard (score) values (?)"
-      << score;
-}
-
 SQL_Leaderboard::SQL_Leaderboard(const std::string& db_path) : db_{db_path} {
   db_ << "CREATE TABLE if not exists easy_mode_leaderboard (\n"
-         "  name  TEXT NOT NULL,\n"
+         "  score INTEGER NOT NULL\n"
+         ");";
+
+  db_ << "CREATE TABLE if not exists medium_mode_leaderboard (\n"
+         "  score INTEGER NOT NULL\n"
+         ");";
+
+  db_ << "CREATE TABLE if not exists hard_mode_leaderboard (\n"
          "  score INTEGER NOT NULL\n"
          ");";
 }
