@@ -14,7 +14,8 @@
 using std::vector;
 using std::string;
 const vector<string> game_modes{"easy", "medium", "hard"};
-
+const int kNumOfStartingFloors = 10;
+const int kHeightOfFloor = 40;
 
 namespace myapp {
 
