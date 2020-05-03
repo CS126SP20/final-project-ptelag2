@@ -18,28 +18,27 @@ using std::chrono::system_clock;
 using std::string;
 using cinder::TextBox;
 using std::chrono::milliseconds;
-const char kDbPath[] = "leaderboard.db";
-const char kNormalFont[] = "Arial";
-const double kEasy = 1.0;
-const double kMedium = 1.5;
-const double kHard = 2.0;
 
 double RGB_colors[]{1, 1, 0};
+auto game_starting_time = std::chrono::system_clock::now();
+auto starting_time = std::chrono::system_clock::now();
 
 MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 void MyApp::setup() {
+  height_offset = 0;
+  speed_can_increase = false;
+  added_score_to_table = false;
+
+  engine.GetBlock().SetXPosition(0);
   engine.AddInitialFloors();
   engine.PlaceBlockOnLowestSurface();
-  engine.SetGameMode(kMedium);
+  engine.SetGameMode(kEasy);
 }
 
-auto game_starting_time = std::chrono::system_clock::now();
-auto starting_time = std::chrono::system_clock::now();
-double height_offset = 0;
-bool speed_can_increase = false;
-bool added_score_to_table = false;
+
+
 void MyApp::update() {
 
   auto current_time = std::chrono::system_clock::now();
@@ -52,9 +51,9 @@ void MyApp::update() {
   if (speed_increase_delay > 5 && speed_can_increase) {
     engine.IncreaseSpeed(0.05);
     starting_time = std::chrono::system_clock::now();
-    RGB_colors[0] = (float)rand() / (RAND_MAX);
-    RGB_colors[1] = (float)rand() / (RAND_MAX);
-    RGB_colors[2] = (float)rand() / (RAND_MAX);
+    RGB_colors[kRed] = (float)rand() / (RAND_MAX);
+    RGB_colors[kGreen] = (float)rand() / (RAND_MAX);
+    RGB_colors[kBlue] = (float)rand() / (RAND_MAX);
   }
 
   if (animation_start_delay > 10) {
@@ -89,7 +88,7 @@ void MyApp::draw() {
 }
 
 void MyApp::DrawBackground() {
-  cinder::gl::clear(Color(0, 0, 0));
+  cinder::gl::clear(Color(1, 1, 0));
 }
 
 void MyApp::DrawBlock() {
@@ -107,14 +106,14 @@ void MyApp::DrawFloors() {
   cinder::gl::color(RGB_colors[0], RGB_colors[1], RGB_colors[2]);
   for (int i = 0; i < engine.GetFloors().size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
-                                    engine.GetFloors()[i].GetHeight() * 40 - height_offset,
+                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor - height_offset,
                                     (engine.GetFloors()[i].GetOpenSpot()) * kHeightOfFloor,
-                                    engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height_offset));
+                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor + kHeightOfFloor - height_offset));
 
     cinder::gl::drawSolidRect(Rectf((engine.GetFloors()[i].GetOpenSpot() + 1) * kHeightOfFloor,
-                                    engine.GetFloors()[i].GetHeight() * 40 - height_offset,
+                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor - height_offset,
                                     800,
-                                    engine.GetFloors()[i].GetHeight() * 40 + kHeightOfFloor - height_offset));
+                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor + kHeightOfFloor - height_offset));
   }
 }
 
@@ -142,13 +141,38 @@ void MyApp::DrawGameOver() {
   cinder::gl::clear(Color(0.8, 0, 0));
   const cinder::vec2 center = getWindowCenter();
   const cinder::ivec2 size = {500, 50};
-  PrintText("Game Over", Color::black(), size, center);
+  PrintText("Game Over", Color::black(), size, {center.x, center.y - 50});
+
+  PrintGameMode();
+  PrintPlayerScore();
+  PrintTopScores();
+}
+
+void MyApp::PrintGameMode() {
+  const cinder::vec2 center = getWindowCenter();
+  const cinder::ivec2 size = {500, 50};
+
+  string display_game_mode = "Your Game Mode: ";
+  string game_mode = engine.GetGameMode();
+  game_mode[0] = toupper(game_mode[0]);
+  display_game_mode.append(game_mode);
+
+  PrintText(display_game_mode, Color::black(), size, {center.x, center.y + 50});
+}
+
+void MyApp::PrintPlayerScore() {
+  const cinder::vec2 center = getWindowCenter();
+  const cinder::ivec2 size = {500, 50};
+
   string player_score = "Your Score: ";
   player_score.append(std::to_string(engine.GetScore()));
-  string game_mode = "Your Game Mode: ";
-  game_mode.append(engine.GetGameMode());
-  PrintText(game_mode, Color::black(), size, {center.x, center.y + 50});
   PrintText(player_score, Color::black(), size, {center.x, center.y + 100});
+}
+
+void MyApp::PrintTopScores() {
+  const cinder::vec2 center = getWindowCenter();
+  const cinder::ivec2 size = {500, 50};
+
   vector<int> top_scores = leaderboard.GetHighestScores(3, engine.GetGameMode());
   int row = 2;
   for (const int score : top_scores) {
@@ -165,6 +189,7 @@ void MyApp::keyDown(KeyEvent event) {
       engine.GetBlock().MoveLeft();
       break;
     }
+    case KeyEvent::KEY_d:
     case KeyEvent::KEY_RIGHT: {
       engine.GetBlock().MoveRight();
       break;

@@ -9,6 +9,14 @@
 
 const int kBlockSize = 40;
 const int kHeightOfFloor = 40;
+const char kDbPath[] = "leaderboard.db";
+const char kNormalFont[] = "Arial";
+const double kEasy = 1.0;
+const double kMedium = 1.5;
+const double kHard = 2.0;
+const int kRed = 0;
+const int kGreen = 1;
+const int kBlue = 2;
 
 namespace myapp {
 
@@ -23,10 +31,16 @@ class MyApp : public cinder::app::App {
   void DrawBlock();
   void DrawFloors();
   void DrawGameOver();
+  void PrintGameMode();
+  void PrintPlayerScore();
+  void PrintTopScores();
 
  private:
   SQL_Leaderboard leaderboard;
   Engine engine;
+  double height_offset;
+  bool speed_can_increase;
+  bool added_score_to_table;
 };
 
 }  // namespace myapp
