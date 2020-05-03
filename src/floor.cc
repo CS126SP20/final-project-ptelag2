@@ -8,9 +8,11 @@
 namespace myapp {
 
 Floor::Floor() {
-  int open_index =  (rand() % 20);
+  //Randomly generates an integer between 0-19
+  int open_index =  (rand() % kLengthOfFloor);
   open_spot = open_index;
 }
+
 double Floor::GetHeight() {
   return height;
 }
