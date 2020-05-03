@@ -6,7 +6,6 @@
 
 namespace myapp {
 
-
 Block& Engine::GetBlock() {
   return (Block&)block;
 }
@@ -25,11 +24,13 @@ void Engine::BlockCanMoveDown() {
 void Engine::PlaceBlockOnLowestSurface() {
   block.SetYPosition((10 - floors.size()) * 2);
 }
+
 void Engine::AddRandomFloor() {
   Floor new_floor;
   new_floor.SetHeight(floors.front().GetHeight() + 2);
   floors.insert(floors.begin(), new_floor);
 }
+
 void Engine::AddInitialFloors() {
   for (int i = 0; i < 10; i++) {
     Floor new_floor;
@@ -37,19 +38,23 @@ void Engine::AddInitialFloors() {
     floors.insert(floors.begin(), new_floor);
   }
 }
+
 vector<Floor>& Engine::GetFloors() {
   return floors;
 }
 
 bool Engine::IsGameOver() {
-  if (block.GetYPosition() < 0) {
-    return true;
-  }
-  return false;
+  return block.GetYPosition() < 0;
 }
+
+double GameSpeedToGameMode(double game_speed) {
+  return (2 * game_speed - 2);
+}
+
 void Engine::SetGameMode(double game_speed) {
   speed = game_speed;
   floor_generator_offset = 10 - (10 * (game_speed - 1));
+  game_mode = game_modes[GameSpeedToGameMode(game_speed)];
 }
 
 double Engine::GetSpeed() {
@@ -66,6 +71,9 @@ void Engine::MoveBlockUp() {
 
 void Engine::IncreaseSpeed(double percent) {
   speed = (speed * (1 + percent));
+}
+string Engine::GetGameMode() {
+  return game_mode;
 }
 
 }

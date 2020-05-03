@@ -7,10 +7,14 @@
 
 #include <mylibrary/block.h>
 
+#include <string>
 #include <vector>
 
 #include "floor.h"
 using std::vector;
+using std::string;
+const vector<string> game_modes{"easy", "medium", "hard"};
+
 
 namespace myapp {
 
@@ -22,6 +26,7 @@ class Engine {
   Block block;
   double speed;
   int floor_generator_offset;
+  string game_mode;
 
  public:
   vector<Floor>& GetFloors();
@@ -37,6 +42,7 @@ class Engine {
   int GetFloorGeneratorOffset();
   void MoveBlockUp();
   void IncreaseSpeed(double percent);
+  string GetGameMode();
 };
 
 }
