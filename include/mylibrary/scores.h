@@ -7,6 +7,9 @@
 
 #include <sqlite_modern_cpp.h>
 
+#include <string>
+using std::string;
+using std::vector;
 namespace myapp {
 
 class SQL_Leaderboard {
@@ -14,7 +17,9 @@ class SQL_Leaderboard {
  public:
   //SQL_Leaderboard();
   SQL_Leaderboard(const std::string& db_path);
-  void InsertScoreToLeaderboard(const int score);
+  void InsertScoreToLeaderboard(const int score, const string mode);
+  void InsertScoreToEasyLeaderboard(const int score);
+  vector<int> GetHighestScores(const int limit, const string mode);
 
  private:
   sqlite::database db_;

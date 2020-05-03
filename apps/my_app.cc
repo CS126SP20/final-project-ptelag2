@@ -23,7 +23,7 @@ const char kNormalFont[] = "Arial";
 const double kEasy = 1.0;
 const double kMedium = 1.5;
 const double kHard = 2.0;
-//double speed = 1.0;
+
 double RGB_colors[]{1, 1, 0};
 
 MyApp::MyApp() : engine{},
@@ -32,8 +32,9 @@ MyApp::MyApp() : engine{},
 void MyApp::setup() {
   engine.AddInitialFloors();
   engine.PlaceBlockOnLowestSurface();
-  engine.SetGameMode(kHard);
+  engine.SetGameMode(kMedium);
 }
+
 auto game_starting_time = std::chrono::system_clock::now();
 auto starting_time = std::chrono::system_clock::now();
 double height_offset = 0;
@@ -72,7 +73,7 @@ void MyApp::update() {
   }
 
   if (engine.IsGameOver() && !added_score_to_table) {
-    leaderboard.InsertScoreToLeaderboard(engine.GetScore());
+    leaderboard.InsertScoreToLeaderboard(engine.GetScore(), engine.GetGameMode());
     added_score_to_table = true;
   }
 }
@@ -142,10 +143,24 @@ void MyApp::DrawGameOver() {
   const cinder::vec2 center = getWindowCenter();
   const cinder::ivec2 size = {500, 50};
   PrintText("Game Over", Color::black(), size, center);
+  string player_score = "Your Score: ";
+  player_score.append(std::to_string(engine.GetScore()));
+  string game_mode = "Your Game Mode: ";
+  game_mode.append(engine.GetGameMode());
+  PrintText(game_mode, Color::black(), size, {center.x, center.y + 50});
+  PrintText(player_score, Color::black(), size, {center.x, center.y + 100});
+  vector<int> top_scores = leaderboard.GetHighestScores(3, engine.GetGameMode());
+  int row = 2;
+  for (const int score : top_scores) {
+    std::stringstream ss;
+    ss << score;
+    PrintText(ss.str(), Color::black(), size, {center.x, center.y + (++row * 50)});
+  }
 }
 
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
+    case KeyEvent::KEY_a:
     case KeyEvent::KEY_LEFT: {
       engine.GetBlock().MoveLeft();
       break;
