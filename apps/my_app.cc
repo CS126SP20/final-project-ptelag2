@@ -89,7 +89,6 @@ void MyApp::update() {
 }
 
 void MyApp::draw() {
-
   if (on_welcome_screen) {
     DrawWelcomeScreen();
     return;
@@ -154,8 +153,6 @@ void PrintText(const string& text, const C& color, const cinder::ivec2& size,
   const auto texture = cinder::gl::Texture::create(surface);
   cinder::gl::draw(texture, locp);
 }
-
-
 
 void MyApp::DrawWelcomeScreen() {
   cinder::gl::clear(Color(0, 0, 0));
