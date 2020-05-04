@@ -43,7 +43,7 @@ TEST_CASE("Block X Axis Movement", "[block]") {
 TEST_CASE("Block Y Axis Movement", "[block]") {
   SECTION("Block Moves Down When on an open spot") {
     Engine engine;
-    engine.AddInitialFloors();
+    engine.AddRandomInitialFloors();
     int block_current_y_position = engine.GetBlock().GetYPosition();
     int open_spot = engine.GetFloors().back().GetOpenSpot();
     engine.GetBlock().SetXPosition(open_spot);
@@ -63,7 +63,7 @@ TEST_CASE("Block Y Axis Movement", "[block]") {
 
 TEST_CASE("Engine Generates Ten Floors At Start of Game", "[engine]") {
   Engine engine;
-  engine.AddInitialFloors();
+  engine.AddRandomInitialFloors();
   REQUIRE(engine.GetFloors().size() == 10);
 }
 
@@ -81,7 +81,7 @@ TEST_CASE("Floor Open Spot is between 0 - 19", "[floor]") {
 
 TEST_CASE("Adds One Floor to Game", "[floor]") {
   Engine engine;
-  engine.AddInitialFloors();
+  engine.AddRandomInitialFloors();
   engine.AddRandomFloor();
   REQUIRE(engine.GetFloors().size() == 11);
 }
