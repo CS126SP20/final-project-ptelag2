@@ -223,9 +223,9 @@ void MyApp::PrintPlayerScore() {
 void MyApp::PrintTopScores() {
   const cinder::vec2 center = getWindowCenter();
   const cinder::ivec2 size = {500, 50};
-
+  PrintText("Top Scores:", Color::black(), size, {center.x, center.y + 150});
   vector<int> top_scores = leaderboard.GetHighestScores(3, engine.GetGameMode());
-  int row = 2;
+  int row = 3;
   int score_rank = 1;
   for (const int score : top_scores) {
     std::stringstream ss;
@@ -255,7 +255,7 @@ void MyApp::keyDown(KeyEvent event) {
 
 void MyApp::mouseDown(MouseEvent event) {
   if (event.isLeft() && on_welcome_screen) {
-    if (event.getX() >= 345 && event.getX() <= 450) {
+    if (event.getX() >= 345 && event.getX() <= 450 && event.getY() >= 280 && event.getY() <= 415) {
       if (event.getY() >= 280 && event.getY() <= 320) {
         engine.SetGameMode(kEasy);
       } else if (event.getY() >= 320 && event.getY() <= 375) {
