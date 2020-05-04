@@ -9,33 +9,39 @@ namespace myapp {
 Block& Engine::GetBlock() {
   return (Block&)block;
 }
+
 int Engine::GetScore() {
   return score;
 }
 
 void Engine::BlockCanMoveDown() {
   if (floors.back().GetOpenSpot() == block.GetXPosition()) {
-    block.SetYPosition(block.GetYPosition() + 2);
+    //Move the block down by kBlockYAxisMovement
+    block.SetYPosition(block.GetYPosition() + kBlockYAxisMovement);
+    //Remove that floor from the list
     floors.pop_back();
+    //If a block goes through the floor add a point to the score
     score++;
   }
 }
 
 void Engine::PlaceBlockOnLowestSurface() {
-  block.SetYPosition((kNumOfStartingFloors - floors.size()) * 2);
+  //block.SetYPosition((kNumOfStartingFloors - floors.size()) * kBlockYAxisMovement);
+  block.SetYPosition(20 - (2 * floors.size()));
 }
 
 void Engine::AddRandomFloor() {
   Floor new_floor;
+  //Sets the height of the new floor to 2 units lower than the current lowest
   new_floor.SetHeight(floors.front().GetHeight() + 2);
   floors.insert(floors.begin(), new_floor);
 }
 
-void Engine::AddInitialFloors() {
+void Engine::AddRandomInitialFloors() {
   for (size_t i = 0; i < kNumOfStartingFloors; i++) {
     Floor new_floor;
-    new_floor.SetHeight(((2 * i) + 1));
-    floors.insert(floors.begin(), new_floor);
+    new_floor.SetHeight(20 - (2 * i) - 1);
+    floors.push_back(new_floor);
   }
 }
 
@@ -44,16 +50,25 @@ vector<Floor>& Engine::GetFloors() {
 }
 
 bool Engine::IsGameOver() {
+  //If Block crosses the top of the screen
   return block.GetYPosition() < 0;
 }
 
 double GameSpeedToGameMode(double game_speed) {
+  //Take the game_speed and converts it to an index that corresponds to a specific
+  //Game mode
   return (2 * game_speed - 2);
+}
+
+int GameSpeedToFloorGeneratorOffset(double game_speed) {
+  //Takes the game_speed and converts it to an index that corresponds to a specific
+  //game mode's floor generator offset
+  return kNumOfStartingFloors - (kNumOfStartingFloors * (game_speed - 1));
 }
 
 void Engine::SetGameMode(double game_speed) {
   speed = game_speed;
-  floor_generator_offset = kNumOfStartingFloors - (kNumOfStartingFloors * (game_speed - 1));
+  floor_generator_offset = GameSpeedToFloorGeneratorOffset(game_speed);
   game_mode = game_modes[GameSpeedToGameMode(game_speed)];
 }
 
@@ -66,7 +81,7 @@ int Engine::GetFloorGeneratorOffset() {
 }
 
 void Engine::MoveBlockUp() {
-  block.SetYPosition(block.GetYPosition() - (speed / kHeightOfFloor));
+  block.SetYPosition(block.GetYPosition() - (speed / kHeightOfBlock));
 }
 
 void Engine::IncreaseSpeed(double percent) {
@@ -75,6 +90,10 @@ void Engine::IncreaseSpeed(double percent) {
 
 string Engine::GetGameMode() {
   return game_mode;
+}
+
+void Engine::ForceGameOver() {
+  block.SetYPosition(kGameOverHeight);
 }
 
 }

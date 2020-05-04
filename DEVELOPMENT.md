@@ -19,3 +19,19 @@
 - **4/28/20** Ability to Change Game Mode
     - Added logic for changing game modes
     - Added a speed increase after a set amount of time
+- **4/30/20** Added more to game modes
+    - The color of the floors change to a random color when the speed changes
+    - Each mode now spawns a new floor at a different times
+    - Added Game Over Screen
+    - Still need to add Welcome Screen
+- **5/1/20** Started incorporating SQL Database into the code
+    - Displays the top three scores on the ending screen
+    - Displays the players score on the ending screen
+- **5/2/20** Added more SQL Databases
+    - Created a new database for each game mode
+    - Each game mode only shows the top three scores from that specific database
+- **5/3/20** Welcome Screen
+    - Added A welcome screen that the user can click on to choose the Mode
+    - Added a graphic of the game to the welcome screen to make it more appealing
+    - Reorganized code and began adding Java doc comments
+    - Still need to finish adding Java doc comments
