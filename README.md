@@ -16,6 +16,10 @@ layout.
 
 ![image of ending screen](assets/GameOverMedium.png)
 
+![image of ending screen](assets/CS126FinalProjectDemo.gif)
+
+
+
 
 
 
