@@ -7,3 +7,18 @@ Read [this document](https://cliutils.gitlab.io/modern-cmake/chapters/basics/str
 layout.
 
 **Author**: Praval Telagi - [`ptelag2@illinois.edu`](mailto:ptelag2@illinois.edu)
+
+![image of welcome screen](assets/WelcomeScreenImage.png)
+
+![image of game screen](assets/InGameImageBeginning.png)
+
+![image of welcome screen](assets/InGameImageMiddle.png)
+
+
+
+####Keyboard
+Key | Action
+------------ | -------------
+    a / LEFT | Move to the left
+   d / RIGHT | Move to the right
+   ESC       | Quit
