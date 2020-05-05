@@ -12,7 +12,11 @@ layout.
 
 ![image of game screen](assets/InGameImageBeginning.png)
 
-![image of welcome screen](assets/InGameImageMiddle.png)
+![image of game screen](assets/InGameImageMiddle.png)
+
+![image of ending screen](assets/GameoverMedium.png)
+
+
 
 
 
