@@ -16,9 +16,10 @@ layout.
 
 
 
-####Keyboard
-Key | Action
------------- | -------------
-    a / LEFT | Move to the left
-   d / RIGHT | Move to the right
-   ESC       | Quit
+#### Keyboard
+| Key       | Action                            |
+|---------- |-----------------------------------|
+| `d/RIGHT`       | Move to the right           |
+| `a/LEFT`       | Move to the left             |
+| `ESC`          | Quit Game                    |
+
