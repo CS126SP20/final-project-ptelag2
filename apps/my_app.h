@@ -12,6 +12,7 @@
 using std::chrono::system_clock;
 
 const int kBlockSize = 40;
+const int kFloorHeight = 40;
 const char kDbPath[] = "leaderboard.db";
 const char kNormalFont[] = "Arial";
 const double kEasy = 1.0;

@@ -26,7 +26,6 @@ void Engine::BlockCanMoveDown() {
 }
 
 void Engine::PlaceBlockOnLowestSurface() {
-  //block.SetYPosition((kNumOfStartingFloors - floors.size()) * kBlockYAxisMovement);
   block.SetYPosition((kFloorYAxisOffset * kMaxFloorsOnScreen)
                           - (kFloorYAxisOffset * floors.size()));
 }

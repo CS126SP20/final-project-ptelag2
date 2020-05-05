@@ -26,6 +26,7 @@ MyApp::MyApp() : engine{},
                    leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 void MyApp::setup() {
+  //Set integer and boolean variables
   height_offset = 0;
   speed_can_increase = false;
   added_score_to_table = false;
@@ -33,10 +34,13 @@ void MyApp::setup() {
   game_started = false;
   timers_have_been_set = false;
 
+  //Set Timers
   game_starting_time = std::chrono::system_clock::now();
   starting_time = std::chrono::system_clock::now();
 
+  //Set engine to correct settings
   engine.GetBlock().SetXPosition(0);
+  engine.GetBlock().SetYPosition(0);
   engine.AddRandomInitialFloors();
   engine.PlaceBlockOnLowestSurface();
 }
@@ -45,6 +49,7 @@ void MyApp::update() {
   if (game_started) {
 
     if (!timers_have_been_set) {
+      //Set timers to proper time
       game_starting_time = std::chrono::system_clock::now();
       starting_time = std::chrono::system_clock::now();
       timers_have_been_set = true;
@@ -91,9 +96,7 @@ void MyApp::draw() {
   if (on_welcome_screen) {
     DrawWelcomeScreen();
     return;
-  }
-
-  if (engine.IsGameOver()) {
+  } else if (engine.IsGameOver()) {
     DrawGameOver();
     return;
   }
@@ -124,12 +127,14 @@ void MyApp::DrawFloors() {
     cinder::gl::drawSolidRect(Rectf(0,
                                     engine.GetFloors()[i].GetHeight() * kHeightOfFloor - height_offset,
                                     (engine.GetFloors()[i].GetOpenSpot()) * kHeightOfFloor,
-                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor + kHeightOfFloor - height_offset));
+                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor
+                                          + kHeightOfFloor - height_offset));
 
     cinder::gl::drawSolidRect(Rectf((engine.GetFloors()[i].GetOpenSpot() + 1) * kHeightOfFloor,
                                     engine.GetFloors()[i].GetHeight() * kHeightOfFloor - height_offset,
                                     800,
-                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor + kHeightOfFloor - height_offset));
+                                    engine.GetFloors()[i].GetHeight() * kHeightOfFloor
+                                          + kHeightOfFloor - height_offset));
   }
 }
 
@@ -166,20 +171,20 @@ void MyApp::DrawWelcomeScreen() {
   cinder::gl::color(RGB_colors[kRed], RGB_colors[kGreen], RGB_colors[kBlue]);
   for (int i = 0; i < cosmetic_floors.size(); i++) {
     cinder::gl::drawSolidRect(Rectf(0,
-                                    800 - (2 * i * 40),
+                                    800 - (kFloorYAxisOffset * i * kFloorHeight),
                                     (cosmetic_floors[i]) * kHeightOfFloor,
-                                    800 - (2 * i * 40) - 40));
+                                    800 - (kFloorYAxisOffset * i * kFloorHeight) - kFloorHeight));
 
     cinder::gl::drawSolidRect(Rectf((cosmetic_floors[i] + 1) * kHeightOfFloor,
-                                    800 - (2 * i * 40),
+                                    800 - (kFloorYAxisOffset * i * kFloorHeight),
                                     800,
-                                    800 - (2 * i * 40) - 40));
+                                    800 - (kFloorYAxisOffset * i * kFloorHeight) - kFloorHeight));
   }
 
   cinder::gl::color(0, 1, 0);
-  cinder::gl::drawSolidRect(Rectf(kBlockSize * 2,
+  cinder::gl::drawSolidRect(Rectf(kBlockSize * kBlockYAxisMovement,
                                   kBlockSize * 10,
-                                  kBlockSize * 2
+                                  kBlockSize * kBlockYAxisMovement
                                   + kBlockSize,
                                   kBlockSize * 10
                                   + kBlockSize));

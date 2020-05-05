@@ -10,14 +10,16 @@ using std::string;
 
 namespace myapp {
 
-void SQL_Leaderboard::InsertScoreToLeaderboard(const int score, const string mode) {
+void SQL_Leaderboard::InsertScoreToLeaderboard(const int score,
+                                                const string mode) {
   db_ << "insert into " + mode + "_mode_leaderboard (score) values (?)"
       << score;
 }
 
-vector<int> SQL_Leaderboard::GetHighestScores(const int limit, const string mode) {
-  auto rows = db_ << "select score from " + mode + "_mode_leaderboard order by score"
-                     " desc Limit ?"
+vector<int> SQL_Leaderboard::GetHighestScores(const int limit,
+                                                const string mode) {
+  auto rows = db_ << "select score from " + mode + "_mode_leaderboard order by"
+                     " score desc Limit ?"
                   << limit;
 
   vector<int> top_scores;
