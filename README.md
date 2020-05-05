@@ -18,7 +18,9 @@ layout.
 
 ![image of ending screen](assets/CS126FinalProjectDemo.gif)
 
+## Dependencies
 
+- [sqlite-modern-cpp] and [sqlite3]
 
 
 

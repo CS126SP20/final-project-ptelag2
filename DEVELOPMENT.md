@@ -41,3 +41,7 @@
     - Added more Java doc comments
     - Moved variables to a more sensible location
     - Fixed minor bug in the engine class
+    - Still need to fix some formatting issues
+    - Still need to finish README.md
+- **5/5/20** Finishing Touches
+    - Made all lines under 80 characters to follow the style guide
