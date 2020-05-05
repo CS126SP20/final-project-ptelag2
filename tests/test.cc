@@ -119,6 +119,13 @@ TEST_CASE("Game Speed sets correct game mode", "[engine]") {
   }
 }
 
+TEST_CASE("Force Quitting Causes Game to be Over", "engine") {
+  Engine engine;
+  REQUIRE(!engine.IsGameOver());
+  engine.ForceGameOver();
+  REQUIRE(engine.IsGameOver());
+}
+
 TEST_CASE("Speed Increase", "[engine]") {
   SECTION("Speed Increases by the inputted percent for easy game mode") {
     Engine engine;
