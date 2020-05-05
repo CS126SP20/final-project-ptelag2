@@ -14,7 +14,7 @@ layout.
 
 ![image of game screen](assets/InGameImageMiddle.png)
 
-![image of ending screen](assets/GameoverMedium.png)
+![image of ending screen](assets/GameOverMedium.png)
 
 
 
