@@ -23,8 +23,8 @@ layout.
 - [sqlite-modern-cpp] and sqlite3
 
     Sqlite-modern-cpp and sqlite3 were used in together to help keep track of the scores players achieve as they play the game. 
-    Three databases are setup for each of the three difficulties to ensure that the scores from one difficulty are being compared 
-    against the scores from the same difficulty. 
+    Three databases are setup for each of the three difficulties to ensure that the current player's score from one difficulty 
+    is being compared against the scores from the same difficulty. 
 
 
 
