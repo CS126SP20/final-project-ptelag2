@@ -20,7 +20,11 @@ layout.
 
 ## Dependencies
 
-- [sqlite-modern-cpp] and [sqlite3]
+- [sqlite-modern-cpp] and sqlite3
+
+    Sqlite-modern-cpp and sqlite3 were used in together to help keep track of the scores players achieve as they play the game. 
+    Three databases are setup for each of the three difficulties to ensure that the scores from one difficulty are being compared 
+    against the scores from the same difficulty. 
 
 
 
@@ -33,3 +37,5 @@ layout.
 | `a/LEFT`       | Move to the left             |
 | `ESC`          | Quit Game                    |
 
+
+[sqlite-modern-cpp]: https://github.com/SqliteModernCpp/sqlite_modern_cpp

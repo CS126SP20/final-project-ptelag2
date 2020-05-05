@@ -13,14 +13,14 @@ iPod in my house and decided to plug in it and see what is on it. I noticed this
 trying to beat my previous score and thought creating something similar to this would be really interesting and fun to do for 
 my final project. Although it wasn't a super exciting application, it still remains one of my favorite mobile games today.
 
-The library I would like to use is called RapidJSON. This allows easy parsing and generating of JSON files. I would like to 
-save each score in a JSON file which is why this library would be ideal for my application. Here is the link to the repository 
-on github: https://github.com/Tencent/rapidjson
+The library I would like to use is SQLite 3 + SQLiteModernCpp. This allows easy storing and access of data. I would like to save 
+each score to the database and display the player's score as well as the top scores from the game. Here is the link to the 
+github: https://github.com/SqliteModernCpp/sqlite_modern_cpp
 
 By the end of week 1, I would like to have the visuals of the game completed. I want to be able to press run and have at least 
 a stationary game printed on the board. At the end of week 2, the game should be almost completely playable, but at the least, 
 the floors should be moving upwards on the screen and the square should be able to fall through the holes. Finally, at the end 
-of week 3, I would like to have the scoring system developed that saves the scores to a JSON file. 
+of week 3, I would like to have the scoring system developed that saves the scores to a database and dispalying them. 
 
 If I were to finish this project early, I would like to implement different levels of difficulty in the game. Different 
 difficulties could be like having the starting speed be fast on the harder setting. 
