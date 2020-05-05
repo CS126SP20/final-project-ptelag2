@@ -10,13 +10,11 @@ layout.
 
 ![image of welcome screen](assets/WelcomeScreenImage.png)
 
-![image of game screen](assets/InGameImageBeginning.png)
-
-![image of game screen](assets/InGameImageMiddle.png)
+![image of ending screen](assets/CS126FinalProjectDemo.gif)
 
 ![image of ending screen](assets/GameOverMedium.png)
 
-![image of ending screen](assets/CS126FinalProjectDemo.gif)
+
 
 ## Dependencies
 
