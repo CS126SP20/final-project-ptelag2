@@ -9,6 +9,7 @@
 - **4/21/20** Added the SQL interface that I will use as my external library
     - Added the SQL interface that will be used to view the scores of the player
     - Added Score class to add scores into the database
+    - Need to add animation
 - **4/23/20** Added Animation to the floors
     - Floors now slowly move up the screen
     - Floors also regenerate after if there are less than a set number
@@ -19,6 +20,7 @@
 - **4/28/20** Ability to Change Game Mode
     - Added logic for changing game modes
     - Added a speed increase after a set amount of time
+    - Need to add game over screen
 - **4/30/20** Added more to game modes
     - The color of the floors change to a random color when the speed changes
     - Each mode now spawns a new floor at a different times
@@ -35,3 +37,7 @@
     - Added a graphic of the game to the welcome screen to make it more appealing
     - Reorganized code and began adding Java doc comments
     - Still need to finish adding Java doc comments
+- **5/4/20** Reorganizing Code
+    - Added more Java doc comments
+    - Moved variables to a more sensible location
+    - Fixed minor bug in the engine class

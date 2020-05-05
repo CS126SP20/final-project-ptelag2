@@ -18,8 +18,13 @@ const vector<string> game_modes{"easy", "medium", "hard"};
 const int kNumOfStartingFloors = 10;
 const int kHeightOfBlock = 40;
 const int kHeightOfFloor = 40;
+const int kMaxFloorsOnScreen = 10;
 const int kBlockYAxisMovement = 2;
+const int kFloorYAxisOffset = 2;
 const int kGameOverHeight = -1;
+const int kSpeedChangeDelaySeconds = 5;
+const int kAnimationStartDelaySeconds = 10;
+const double kAnimationSpeed = 0.05;
 
 namespace myapp {
 
@@ -34,6 +39,7 @@ class Engine {
   string game_mode;
 
  public:
+
   /**
    * Gets the Vector that holds each floor in the game
    * @return Vector of Floor objects

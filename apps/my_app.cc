@@ -41,7 +41,6 @@ void MyApp::setup() {
   engine.PlaceBlockOnLowestSurface();
 }
 
-
 void MyApp::update() {
   if (game_started) {
 
@@ -52,7 +51,7 @@ void MyApp::update() {
     }
 
     auto current_time = std::chrono::system_clock::now();
-    double animation_start_delay =
+    double time_since_start =
         duration_cast<milliseconds>(current_time - game_starting_time).count() /
         1000.0;
 
@@ -60,15 +59,15 @@ void MyApp::update() {
         duration_cast<milliseconds>(current_time - starting_time).count() /
         1000.0;
 
-    if (speed_increase_delay > 5 && speed_can_increase) {
-      engine.IncreaseSpeed(0.05);
+    if (speed_increase_delay > kSpeedChangeDelaySeconds && speed_can_increase) {
+      engine.IncreaseSpeed(kAnimationSpeed);
       starting_time = std::chrono::system_clock::now();
       RGB_colors[kRed] = (float)rand() / (RAND_MAX);
       RGB_colors[kGreen] = (float)rand() / (RAND_MAX);
       RGB_colors[kBlue] = (float)rand() / (RAND_MAX);
     }
 
-    if (animation_start_delay > 10) {
+    if (time_since_start > kAnimationStartDelaySeconds) {
       height_offset += engine.GetSpeed();
       engine.MoveBlockUp();
       if (!speed_can_increase) {
@@ -236,11 +235,13 @@ void MyApp::PrintTopScores() {
 
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
+    case KeyEvent::KEY_UP:
     case KeyEvent::KEY_a:
     case KeyEvent::KEY_LEFT: {
       engine.GetBlock().MoveLeft();
       break;
     }
+    case KeyEvent::KEY_DOWN:
     case KeyEvent::KEY_d:
     case KeyEvent::KEY_RIGHT: {
       engine.GetBlock().MoveRight();
