@@ -10,7 +10,7 @@ layout.
 
 ![image of welcome screen](assets/WelcomeScreenImage.png)
 
-![image of ending screen](assets/CS126FinalProjectDemo.gif)
+![image of ending screen](assets/CS126FinalDemo.gif)
 
 ![image of ending screen](assets/GameOverMedium.png)
 
