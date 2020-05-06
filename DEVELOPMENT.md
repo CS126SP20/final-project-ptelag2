@@ -45,3 +45,8 @@
     - Still need to finish README.md
 - **5/5/20** Finishing Touches
     - Made all lines under 80 characters to follow the style guide
+    - Worked on readme
+    - Still need to finish the readme
+- **5/6/20** Final Additions
+    - Finished ReadME
+  

@@ -16,6 +16,22 @@ layout.
     Three databases are setup for each of the three difficulties to ensure that the current player's score from one difficulty 
     is being compared against the scores from the same difficulty. 
 
+## How to Build
+
+1. Download the latest version of Cinder
+2. Extract the compressed file into a new folder (~/cinder)
+3. Open ~/cinder and build libcinder
+4. Create a new folder in ~/cinder to hold projects (~/cinder/projects)
+5. Create a new folder in ~/cinder/projects to hold this application (~/cinder/projects/escape_the_ceiling)
+6. Clone this repository into that folder
+
+####MacOS
+
+There may be an error=13, Permission denied if running on MacOS. In this case, go to edit configurations, 
+then executable, the select other, 
+then ~/projects/escape_the_ceiling/cmake-build-debug/Debug/cinder-myapp/cinder-myapp.app
+Then rerun the program.
+
 ## Gameplay
 
 ![image of welcome screen](assets/WelcomeScreenImage.png)
@@ -27,7 +43,7 @@ medium, and hard.
 
 Then use the keyboard controls (listed below) to control the block and make sure it keeps
 falling through the holes in the floors. Every 5 seconds the speed increases making the difficulty
-increase as the game progresses.
+increase as the game progresses. The game is over when the green block crosses the ceiling.
 
 ![image of ending screen](assets/GameOverMedium.png)
 
