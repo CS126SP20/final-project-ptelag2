@@ -13,11 +13,11 @@ Floor::Floor() {
   open_spot = open_index;
 }
 
-double Floor::GetHeight() {
+double Floor::GetHeight() const {
   return height;
 }
 
-int Floor::GetOpenSpot() {
+int Floor::GetOpenSpot() const {
   return open_spot;
 }
 

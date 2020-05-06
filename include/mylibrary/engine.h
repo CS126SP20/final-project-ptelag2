@@ -50,7 +50,7 @@ class Engine {
    * Gets the current score of the game
    * @return score as an integer
    */
-  int GetScore();
+  int GetScore() const;
 
   /**
    * Gets the user controllable block
@@ -97,14 +97,14 @@ class Engine {
    * Gets the current speed of the blocks
    * @return speed as a double
    */
-  double GetSpeed();
+  double GetSpeed() const;
 
   /**
    * Determines the minimum amount of floors that should exist when
    * generating a new floor
    * @return floor generator offset as an integer
    */
-  int GetFloorGeneratorOffset();
+  int GetFloorGeneratorOffset() const;
 
   /**
    * Moves the block up at the current speed
@@ -121,7 +121,7 @@ class Engine {
    * Gets the game mode
    * @return game mode as a string
    */
-  string GetGameMode();
+  string GetGameMode() const;
 
   /**
    * Forces the game to finish

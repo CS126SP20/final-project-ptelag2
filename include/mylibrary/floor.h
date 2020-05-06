@@ -22,13 +22,13 @@ class Floor {
    * Gets the current height of the floor
    * @return Height as a double
    */
-  double GetHeight();
+  double GetHeight() const;
 
   /**
    * Gets the spot on the floor where there is an open spot
    * @return Open Spot as an integer
    */
-  int GetOpenSpot();
+  int GetOpenSpot() const;
 
   /**
    * Sets the height of a floor to the inputted value

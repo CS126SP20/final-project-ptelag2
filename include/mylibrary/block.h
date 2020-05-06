@@ -18,13 +18,13 @@ class Block {
    * Gets the X position of the block
    * @return X position of the block as a double
    */
-  double GetXPosition();
+  double GetXPosition() const;
 
   /**
    * Gets the Y position of the block
    * @return Y position of the block as a double
    */
-  double GetYPosition();
+  double GetYPosition() const;
 
   /**
    * Sets the X position of the block to the inputted value

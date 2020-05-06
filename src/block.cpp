@@ -6,11 +6,11 @@
 
 namespace myapp {
 
-double myapp::Block::GetXPosition() {
+double myapp::Block::GetXPosition() const {
   return x_position;
 }
 
-double Block::GetYPosition() {
+double Block::GetYPosition() const {
   return y_position;
 }
 

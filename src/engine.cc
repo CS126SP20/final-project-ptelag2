@@ -10,7 +10,7 @@ Block& Engine::GetBlock() {
   return (Block&)block;
 }
 
-int Engine::GetScore() {
+int Engine::GetScore() const {
   return score;
 }
 
@@ -73,11 +73,11 @@ void Engine::SetGameMode(double game_speed) {
   game_mode = game_modes[GameSpeedToGameMode(game_speed)];
 }
 
-double Engine::GetSpeed() {
+double Engine::GetSpeed() const {
   return speed;
 }
 
-int Engine::GetFloorGeneratorOffset() {
+int Engine::GetFloorGeneratorOffset() const {
   return floor_generator_offset;
 }
 
@@ -89,7 +89,7 @@ void Engine::IncreaseSpeed(double percent) {
   speed = (speed * (1 + percent));
 }
 
-string Engine::GetGameMode() {
+string Engine::GetGameMode() const {
   return game_mode;
 }
 
