@@ -20,7 +20,7 @@ github: https://github.com/SqliteModernCpp/sqlite_modern_cpp
 By the end of week 1, I would like to have the visuals of the game completed. I want to be able to press run and have at least 
 a stationary game printed on the board. At the end of week 2, the game should be almost completely playable, but at the least, 
 the floors should be moving upwards on the screen and the square should be able to fall through the holes. Finally, at the end 
-of week 3, I would like to have the scoring system developed that saves the scores to a database and dispalying them. 
+of week 3, I would like to have the scoring system developed that saves the scores to a database and displaying them. 
 
 If I were to finish this project early, I would like to implement different levels of difficulty in the game. Different 
 difficulties could be like having the starting speed be fast on the harder setting. 
