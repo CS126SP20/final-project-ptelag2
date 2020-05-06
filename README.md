@@ -27,7 +27,7 @@ It is easiest to use this application if you are using CLion.
 5. Create a new folder in ~/cinder/projects to hold this application (~/cinder/projects/escape_the_ceiling)
 6. Clone this repository into that folder
 
-####MacOS
+###MacOS
 
 There may be an error=13, Permission denied if running on MacOS. In this case, go to edit configurations, 
 then executable, the select other, 
