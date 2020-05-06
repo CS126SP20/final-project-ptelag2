@@ -23,8 +23,8 @@ It is easiest to use this application if you are using CLion.
 1. Download the latest version of Cinder
 2. Extract the compressed file into a new folder (~/cinder)
 3. Open ~/cinder and build libcinder
-4. Create a new folder in ~/cinder to hold projects (~/cinder/projects)
-5. Create a new folder in ~/cinder/projects to hold this application (~/cinder/projects/escape_the_ceiling)
+4. Create a new folder in /cinder to hold projects (~/cinder/projects)
+5. Create a new folder in /cinder/projects to hold this application (~/cinder/projects/escape_the_ceiling)
 6. Clone this repository into that folder
 
 #### MacOS
