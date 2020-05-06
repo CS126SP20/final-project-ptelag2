@@ -18,6 +18,8 @@ layout.
 
 ## How to Build
 
+It is easiest to use this application if you are using CLion. 
+
 1. Download the latest version of Cinder
 2. Extract the compressed file into a new folder (~/cinder)
 3. Open ~/cinder and build libcinder
