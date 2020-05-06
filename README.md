@@ -59,8 +59,8 @@ their scores compared to others.
 #### Keyboard
 | Key       | Action                            |
 |---------- |-----------------------------------|
-| `d/RIGHT`       | Move to the right           |
-| `a/LEFT`       | Move to the left             |
+| `d/RIGHT/UP`       | Move to the right           |
+| `a/LEFT/DOWN`       | Move to the left             |
 | `ESC`          | Quit Game                    |
 
 

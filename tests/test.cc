@@ -3,7 +3,6 @@
 #define CATCH_CONFIG_MAIN
 
 #include <catch2/catch.hpp>
-#include <cinder/Rand.h>
 
 #include <mylibrary/block.h>
 #include <mylibrary/engine.h>

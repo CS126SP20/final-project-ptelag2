@@ -55,6 +55,7 @@ void MyApp::update() {
       timers_have_been_set = true;
     }
 
+
     auto current_time = std::chrono::system_clock::now();
     double time_since_start =
         duration_cast<milliseconds>(current_time - game_starting_time).count() /
@@ -64,6 +65,7 @@ void MyApp::update() {
         duration_cast<milliseconds>(current_time - starting_time).count() /
         1000.0;
 
+    //Increases the speed and changes the color of the floor
     if (speed_increase_delay > kSpeedChangeDelaySeconds && speed_can_increase) {
       engine.IncreaseSpeed(kAnimationSpeed);
       starting_time = std::chrono::system_clock::now();
@@ -72,6 +74,7 @@ void MyApp::update() {
       RGB_colors[kBlue] = (float)rand() / (RAND_MAX);
     }
 
+    //Starts the animation after a set amount of time since the game start
     if (time_since_start > kAnimationStartDelaySeconds) {
       height_offset += engine.GetSpeed();
       engine.MoveBlockUp();
@@ -82,10 +85,12 @@ void MyApp::update() {
     }
   }
 
+  //Adds a new floor to the game
   if (engine.GetFloors().size() <= engine.GetFloorGeneratorOffset()) {
     engine.AddRandomFloor();
   }
 
+  //Adds score to appropriate leaderboard
   if (engine.IsGameOver() && !added_score_to_table) {
     leaderboard.InsertScoreToLeaderboard(engine.GetScore(), engine.GetGameMode());
     added_score_to_table = true;
@@ -261,7 +266,8 @@ void MyApp::keyDown(KeyEvent event) {
 
 void MyApp::mouseDown(MouseEvent event) {
   if (event.isLeft() && on_welcome_screen) {
-    if (event.getX() >= 345 && event.getX() <= 450 && event.getY() >= 280 && event.getY() <= 415) {
+    if (event.getX() >= 345 && event.getX() <= 450
+          && event.getY() >= 280 && event.getY() <= 415) {
       if (event.getY() >= 280 && event.getY() <= 320) {
         engine.SetGameMode(kEasy);
       } else if (event.getY() >= 320 && event.getY() <= 375) {
